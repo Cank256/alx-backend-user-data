@@ -44,8 +44,8 @@ def filter_datum(
     """
     Filter sensitive data from log message.
     """
-    return re.sub(r'(?<=^|{})({})(?={}|$)'.format(
-        separator, '|'.join(fields), separator),
+    return re.sub(r'(?:^|{})({})(?={}|$)'.format(
+        '|'.join([separator, '^']), '|'.join(fields), separator),
         redaction,
         message
     )
