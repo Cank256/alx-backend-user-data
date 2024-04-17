@@ -33,6 +33,6 @@ def unauthorized():
 
 
 @app_views.route('/forbidden', methods=['GET'])
-def unauthorized():
+def forbidden():
     """Route to trigger unauthorized error"""
     abort(403)
