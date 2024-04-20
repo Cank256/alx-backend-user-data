@@ -27,7 +27,7 @@ class Auth:
         """
         if path is None:
             return True
-        
+
         # Iterate over excluded paths
         for excluded_path in excluded_paths:
             # Check if the current excluded path ends with "*"
@@ -38,7 +38,7 @@ class Auth:
             # If excluded path doesn't end with "*", perform direct match
             elif path == excluded_path:
                 return False
-        
+
         # If no match found, authentication is required
         return True
 
