@@ -18,12 +18,12 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 # Initialize authentication object
 auth = None
 auth_type = getenv("AUTH_TYPE")
-if auth_type == "session_exp_auth":
-    from api.v1.auth.session_exp_auth import SessionExpAuth
-    auth = SessionExpAuth()
-elif auth_type == "session_db_auth":
-    from api.v1.auth.session_db_auth import SessionDBAuth
-    auth = SessionDBAuth()
+if auth_type == "basic_auth":
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
+else:
+    from api.v1.auth.auth import Auth
+    auth = Auth()
 
 
 @app.before_request
