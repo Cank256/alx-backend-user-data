@@ -4,6 +4,9 @@
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
+from api.v1.auth.auth import Auth
+
+auth = Auth()
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
@@ -12,6 +15,9 @@ def view_all_users() -> str:
     Return:
       - list of all User objects JSON represented
     """
+    if not auth.authorization_header(request):
+        abort(401)
+
     all_users = [user.to_json() for user in User.all()]
     return jsonify(all_users)
 
@@ -25,6 +31,9 @@ def view_one_user(user_id: str = None) -> str:
       - User object JSON represented
       - 404 if the User ID doesn't exist
     """
+    if not auth.authorization_header(request):
+        abort(401)
+
     if user_id is None:
         abort(404)
     user = User.get(user_id)
@@ -42,6 +51,9 @@ def delete_user(user_id: str = None) -> str:
       - empty JSON is the User has been correctly deleted
       - 404 if the User ID doesn't exist
     """
+    if not auth.authorization_header(request):
+        abort(401)
+
     if user_id is None:
         abort(404)
     user = User.get(user_id)
@@ -63,6 +75,9 @@ def create_user() -> str:
       - User object JSON represented
       - 400 if can't create the new User
     """
+    if not auth.authorization_header(request):
+        abort(401)
+
     rj = None
     error_msg = None
     try:
@@ -102,6 +117,9 @@ def update_user(user_id: str = None) -> str:
       - 404 if the User ID doesn't exist
       - 400 if can't update the User
     """
+    if not auth.authorization_header(request):
+        abort(401)
+
     if user_id is None:
         abort(404)
     user = User.get(user_id)
