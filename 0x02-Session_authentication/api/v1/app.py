@@ -52,8 +52,6 @@ def before_request():
     if auth.current_user(request) is None:
         abort(403)
 
-    auth.current_user(request)
-
 
 @app.errorhandler(404)
 def not_found(error) -> str:
