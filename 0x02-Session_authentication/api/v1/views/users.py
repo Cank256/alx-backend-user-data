@@ -126,7 +126,15 @@ def update_user(user_id: str = None) -> str:
 @app_views.route('/users/me', methods=['GET'])
 @auth.require_auth
 def get_current_user():
-    """Get current authenticated user."""
+    """
+    Retrieve the current authenticated user.
+
+    This endpoint returns the user object corresponding to
+    the currently authenticated user.
+
+    Returns:
+        JSON: A JSON response containing the user object.
+    """
     current_user = request.current_user
     if current_user is None:
         abort(404)
