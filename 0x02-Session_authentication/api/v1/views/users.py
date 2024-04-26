@@ -124,7 +124,6 @@ def update_user(user_id: str = None) -> str:
 
 
 @app_views.route('/users/me', methods=['GET'])
-@auth.require_auth
 def get_current_user():
     """
     Retrieve the current authenticated user.
