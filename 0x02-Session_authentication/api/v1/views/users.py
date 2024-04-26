@@ -4,7 +4,7 @@
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
-from api.v1.auth.auth import auth
+from api.v1.auth.basic_auth import BasicAuth
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
@@ -135,7 +135,7 @@ def get_current_user():
     Returns:
         JSON: A JSON response containing the user object.
     """
-    current_user = request.current_user
+    current_user = BasicAuth.current_user
     if current_user is None:
         abort(404)
     return jsonify(current_user.to_dict()), 200
